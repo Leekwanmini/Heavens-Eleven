@@ -10,19 +10,21 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    private String roomNo;
+    @NotNull
+    @Min(100)
+    @Max(499)
+    private int roomNo;
 
     @NotBlank
     private String courseName;
 
-    @Min(1)
-    @Max(6)
-    private int credits;
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private CourseLevel level;
+    public int getRoomNo() { return roomNo; }
+    public void setRoomNo(int roomNo) { this.roomNo = roomNo; }
 
-    
+    public String getCourseName() { return courseName; }
+    public void setCourseName(String courseName) { this.courseName = courseName; }
+
 }
