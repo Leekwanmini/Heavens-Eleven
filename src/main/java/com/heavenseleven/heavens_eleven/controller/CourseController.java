@@ -21,7 +21,8 @@ public class CourseController {
     private CourseRepository courseRepository;
 
     @GetMapping
-    public String showCourses() {
+    public String showCourses(Model model) {
+        model.addAttribute("courses", courseRepository.findAll());
         return "courses";
     }
 
