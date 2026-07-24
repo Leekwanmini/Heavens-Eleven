@@ -20,6 +20,11 @@ public class CourseController {
     @Autowired
     private CourseRepository courseRepository;
 
+    @GetMapping
+    public String showCourses() {
+        return "courses";
+    }
+
     @GetMapping("/new")
     public String showForm(Model model) {
         model.addAttribute("course", new Course());
