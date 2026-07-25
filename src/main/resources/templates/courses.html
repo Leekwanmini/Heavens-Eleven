@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Courses</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <style>
         body {
             background-color: #f8f9fa;
@@ -62,6 +63,33 @@
         </div>
         <a th:href="@{/courses/new}" class="btn btn-primary add-button">+ Add Course</a>
     </div>
+    <!-- form added to search-->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <form th:action="@{/courses}" method="get" class="d-flex gap-2 flex-grow-1" style="max-width: 500px;">
+            <input type="text" name="search" th:value="${search}" class="form-control" placeholder="Search course">
+            <button type="submit" class="btn" style="background-color: #12355B; color: white;">Search</button>
+        </form>
+
+        <!-- added to sort. used boostrap icon --> 
+        <div class="d-flex align-items-center gap-3">
+            <span class="fw-bold text-muted">Sort by:</span>
+            <a th:href="@{/courses(sort='credits', direction=${sort == 'credits' && direction == 'ASC' ? 'DESC' : 'ASC'}, search=${search})}"
+            class="text-decoration-none fw-semibold" style="color: #0d6efd;">
+                Credits
+                <i th:if="${sort == 'credits' && direction == 'ASC'}" class="bi bi-caret-up-fill"></i>
+                <i th:if="${sort == 'credits' && direction == 'DESC'}" class="bi bi-caret-down-fill"></i>
+                <i th:unless="${sort == 'credits'}" class="bi bi-caret-up text-muted"></i>
+            </a>
+            <a th:href="@{/courses(sort='semester', direction=${sort == 'semester' && direction == 'ASC' ? 'DESC' : 'ASC'}, search=${search})}"
+            class="text-decoration-none fw-semibold" style="color: #0d6efd;">
+                Semester
+                <i th:if="${sort == 'semester' && direction == 'ASC'}" class="bi bi-caret-up-fill"></i>
+                <i th:if="${sort == 'semester' && direction == 'DESC'}" class="bi bi-caret-down-fill"></i>
+                <i th:unless="${sort == 'semester'}" class="bi bi-caret-up text-muted"></i>
+            </a>
+        </div>
+    </div>
+
     <div class="courses-card">
         <div class="table-responsive">
             <table class="table table-hover align-middle">
@@ -78,8 +106,7 @@
                 <tr th:each="course : ${courses}">
                     <td><strong th:text="${course.courseName}">CPAN-228</strong></td>
                     <td th:text="${course.roomNo}">N213</td>
-                    <td><span class="badge bg-primary credits-badge" th:text="${course.credits}">3</span>
-                    </td>
+                    <td><span class="badge bg-primary credits-badge" th:text="${course.credits}">3</span></td>
                     <td th:text="${course.semester}">FALL</td>
                     <td class="text-center">
                         <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
