@@ -2,6 +2,23 @@
     xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
     class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <style>
+        .btn-login-or-out {
+            background-color: white;
+            color: #12355B;
+            font-weight: 700;
+            border-radius: 10px;
+            padding: 8px 18px;
+            border: 2px solid white;
+            transition: 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background-color: #12355B;
+            color: white;
+            border-color: white;
+        }
+    </style>
     <div class="container">
         <a class="navbar-brand" th:href="@{/}">
             📖 Course Manager
@@ -20,12 +37,12 @@
                 <li class="nav-item">
                     <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/courses}">Courses</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" sec:authorize="!isAuthenticated()" th:href="@{/login}">Log In</a>
+                <li class="nav-item ms-3">
+                    <a class="btn btn-login-or-out" sec:authorize="!isAuthenticated()" th:href="@{/login}">Log In</a>
                 </li>
             </ul>
-            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="POST">
-                <button type="submit" class="btn btn-submit w-100 py-2">Log Out</button>
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="POST" class="ms-3">
+                <button type="submit" class="btn btn-login-or-out">Log Out</button>
             </form>
         </div>
     </div>
