@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .form-card {
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .form-card h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 35px;
+            color: #12355B !important;
+        }
+
+        .form-label {
+            font-weight: 600 !important;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            padding: 12px;
+            font-size: 1.05rem;
+            border-radius: 8px;
+        }
+
+        .btn-submit {
+            padding: 14px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+    </style>
+
+    <!-- Custom CSS Link -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<!-- Main Content -->
+<div class="container">
+    <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-md-8">
+            <div class="form-card">
+                <h2 class="fw-bold text-dark mb-4 text-center">Log In</h2>
+                <form th:action="@{/login}" method="POST" novalidate>
+                    <div class="mb-3">
+                        <label for="username" class="form-label fw-bold">Username</label>
+                        <input type="text"
+                               id="username"
+                               name="username"
+                               class="form-control"
+                        >
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label fw-bold">Password</label>
+                        <input type="password"
+                               id="password"
+                               name="password"
+                               class="form-control"
+                        >
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-submit w-100 py-2">Log In</button>
+                    <div class="text-center mt-3">
+                        <a class="fw-bold text-decoration-none" th:href="@{/register}">
+                            New to us? Create an account here!
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
