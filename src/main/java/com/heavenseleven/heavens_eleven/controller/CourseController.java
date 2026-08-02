@@ -50,12 +50,14 @@ public class CourseController {
             @RequestParam(defaultValue = "courseName") String sort,
             @RequestParam(defaultValue = "ASC") String direction,
             @RequestParam(required = false) String search,
+            @RequestParam(defaultValue = "all") String filterType,
             Model model) {
 
         Sort.Direction sortDir = Sort.Direction.fromString(direction);
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortDir, sort));
 
         Page<Course> coursePage;
+
         if (search != null && !search.trim().isEmpty()) {
             coursePage = courseRepository.findByCourseNameContainingIgnoreCase(search.trim(), pageable);
         } else {
@@ -64,10 +66,17 @@ public class CourseController {
 
         model.addAttribute("courses", coursePage.getContent());
         model.addAttribute("totalPages", coursePage.getTotalPages());
+        model.addAttribute("totalElement", coursePage.getTotalElements());
+        model.addAttribute("pageSize", size);
         model.addAttribute("currentPage", page);
+        model.addAttribute("hasPrevious", coursePage.hasPrevious());
+        model.addAttribute("hasNext", coursePage.hasNext());
+
         model.addAttribute("search", search);
         model.addAttribute("sort", sort);
         model.addAttribute("direction", direction);
+        model.addAttribute("filterType", filterType);
+        
         return "courses";
     }
 }

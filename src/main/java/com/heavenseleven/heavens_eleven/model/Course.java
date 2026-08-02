@@ -1,5 +1,8 @@
 package com.heavenseleven.heavens_eleven.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -25,6 +28,9 @@ public class Course {
     @NotBlank
     @Pattern(regexp = "^[A-Z]{2,4}-\\d{3}$", message = "Course name must be like CPAN-228")
     private String courseName;
+
+    @ManyToMany(mappedBy = "registeredCourses")
+    private Set<User> students = new HashSet<>();
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
