@@ -70,12 +70,15 @@
 </div>
 <div class="container text-center mt-5">
     <h3 class="home-description mb-5">
-        You can use this resource to find currently relevant details about your 
+        You can use this resource to find relevant details about your 
         presently registered courses, manage your profile, and add new courses 
         whenever needed. Get started by exploring your courses below!
     </h3>
     <a th:href="@{/courses}" class="btn btn-primary btn-lg course-button">
-        Take Me To My Courses!
+        Show Me Available Courses
+    </a>
+    <a th:href="@{/my-courses}" sec:authorize="hasRole('STUDENT')" class="btn btn-primary btn-lg course-button">
+        Show Me My Courses
     </a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>

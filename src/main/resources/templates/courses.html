@@ -59,9 +59,9 @@
     <div class="d-flex justify-content-between align-items-center mb-5">
         <div>
             <h1 class="page-title">Courses</h1>
-            <p class="page-subtitle">Your registered courses</p>
+            <p class="page-subtitle">All available courses</p>
         </div>
-        <a th:href="@{/courses/new}" class="btn btn-primary add-button">+ Add Course</a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/courses/new}" class="btn btn-primary add-button">+ Add Course</a>
     </div>
     <!-- form added to search-->
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
@@ -113,11 +113,54 @@
                     </td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(courses)}">
-                    <td colspan="5" class="text-center text-muted py-4">No courses registered yet.</td>
+                    <td colspan="5" class="text-center text-muted py-4">No courses currently offered.</td>
                 </tr>
                 </tbody>
             </table>
         </div>
+    </div>
+    <!-- Pagination Controls -->
+    <div th:if="${totalPages > 0}" class="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-2 mb-5 gap-3">
+        <!-- Display Paging Info -->
+        <div class="text-muted small">
+            Page <span class="fw-bold" th:text="${currentPage + 1}">1</span> of
+            <span class="fw-bold" th:text="${totalPages}">1</span>
+            (<span th:text="${totalElements}">0</span> Total Courses)
+        </div>
+
+        <!-- Navigation Buttons -->
+        <nav aria-label="Team pagination">
+            <ul class="pagination pagination-sm mb-0">
+                <!-- First Page -->
+                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                    <a class="page-link" th:href="@{/courses(page=0, size=${pageSize}, sort=${sort}, direction=${direction}, search=${search}, filterType=${filterType})}">First</a>
+                </li>
+
+                <!-- Previous Page -->
+                <li class="page-item" th:classappend="${!hasPrevious} ? 'disabled'">
+                    <a class="page-link" th:href="@{/courses(page=${currentPage - 1}, size=${pageSize}, sort=${sort}, direction=${direction}, search=${search}, filterType=${filterType})}">Previous</a>
+                </li>
+
+                <!-- Page Numbers -->
+                <th:block th:if="${totalPages > 0}">
+                    <li class="page-item" th:each="p : ${#numbers.sequence(0, totalPages - 1)}"
+                        th:classappend="${p == currentPage} ? 'active'"
+                        th:if="${p >= currentPage - 2 && p <= currentPage + 2}">
+                        <a class="page-link" th:href="@{/courses(page=${p}, size=${pageSize}, sort=${sort}, direction=${direction}, search=${search}, filterType=${filterType})}" th:text="${p + 1}">1</a>
+                    </li>
+                </th:block>
+
+                <!-- Next Page -->
+                <li class="page-item" th:classappend="${!hasNext} ? 'disabled'">
+                    <a class="page-link" th:href="@{/courses(page=${currentPage + 1}, size=${pageSize}, sort=${sort}, direction=${direction}, search=${search}, filterType=${filterType})}">Next</a>
+                </li>
+
+                <!-- Last Page -->
+                <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{/courses(page=${totalPages - 1}, size=${pageSize}, sort=${sort}, direction=${direction}, search=${search}, filterType=${filterType})}">Last</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>

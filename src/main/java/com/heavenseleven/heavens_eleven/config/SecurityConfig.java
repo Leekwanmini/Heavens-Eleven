@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .requestMatchers("/images/**").permitAll()
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/about").permitAll()
-                .requestMatchers("/courses").authenticated()
+                .requestMatchers("/courses").permitAll()
                 .requestMatchers("/courses/new").hasRole("TEACHER")
                 .requestMatchers("/h2-console/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
@@ -41,6 +41,7 @@ public class SecurityConfig {
             .formLogin(login -> login
                 .loginPage("/login")
                 .defaultSuccessUrl("/", true)
+                .failureUrl("/login?error=true")
             )
             .logout(logout -> logout
                 .logoutSuccessUrl("/")

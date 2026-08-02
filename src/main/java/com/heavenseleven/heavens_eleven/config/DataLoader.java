@@ -30,5 +30,15 @@ public class DataLoader implements ApplicationRunner {
             
             userRepository.save(admin);
         }
+
+        if(userRepository.findByUsername("KLee").isEmpty()) {
+            User teacher = User.builder()
+                .username("KLee")
+                .password(passwordEncoder.encode("humber123"))
+                .role("TEACHER")
+                .build();
+            
+            userRepository.save(teacher);
+        }
     }
 }

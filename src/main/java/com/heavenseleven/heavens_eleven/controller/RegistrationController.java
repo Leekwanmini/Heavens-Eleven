@@ -39,7 +39,7 @@ public class RegistrationController {
         } else {
             User newUser = new User();
 
-            newUser.setRole("USER");
+            newUser.setRole("STUDENT");
             newUser.setPassword(passwordEncoder.encode(user.getPassword()));
             newUser.setUsername(user.getUsername());
 
