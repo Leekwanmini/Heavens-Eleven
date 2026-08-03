@@ -34,8 +34,13 @@ public class SecurityConfig {
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/about").permitAll()
                 .requestMatchers("/courses").permitAll()
-                .requestMatchers("/courses/new").hasRole("TEACHER")
+                //Made exclusive for ADMIN instead of TEACHER 
+                .requestMatchers("/courses/new", "/courses/*/edit", "/courses/*/delete").hasRole("ADMIN")
                 .requestMatchers("/h2-console/**").hasRole("ADMIN")
+                //only students can access to my-courses
+                .requestMatchers("/my-courses").hasRole("STUDENT")
+                //only teachers can access assign.html
+                .requestMatchers("/assign").hasRole("TEACHER")
                 .anyRequest().authenticated()
             )
             .formLogin(login -> login

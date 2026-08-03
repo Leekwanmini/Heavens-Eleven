@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,31 @@ public class CourseController {
         courseRepository.save(course);
         return "redirect:/courses";
     }
+    //added from here
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable Long id, Model model){
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Course not found: " + id));
+        model.addAttribute("course", course);
+        return "course-form";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateCourse(@PathVariable Long id, 
+        @Valid @ModelAttribute("course") Course course, BindingResult result){
+        if (result.hasErrors()){
+            return "course-form";
+        }
+        course.setId(id);
+        courseRepository.save(course);
+        return "redirect:/courses";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String deleteCourse(@PathVariable Long id) {
+        courseRepository.deleteById(id);
+        return "redirect:/courses";
+    }//to here
 
     @GetMapping
     public String listCourses(

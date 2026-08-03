@@ -108,8 +108,18 @@
                     <td th:text="${course.roomNo}">N213</td>
                     <td><span class="badge bg-primary credits-badge" th:text="${course.credits}">3</span></td>
                     <td th:text="${course.semester}">FALL</td>
+                    
                     <td class="text-center">
                         <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                        <a sec:authorize="hasRole('ADMIN')"
+                        th:href="@{/courses/{id}/edit(id=${course.id})}"
+                        class="btn btn-outline-secondary btn-sm">Edit</a>
+                        <form sec:authorize="hasRole('ADMIN')"
+                            th:action="@{/courses/{id}/delete(id=${course.id})}"
+                            method="post" style="display:inline">
+                            <button type="submit" class="btn btn-outline-danger btn-sm"
+                                    onclick="return confirm('Delete this course?');">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(courses)}">
