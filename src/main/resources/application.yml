@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: heavens-eleven
+  profiles:
+    active: dev
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  sql:
+    init:
+      mode: always
