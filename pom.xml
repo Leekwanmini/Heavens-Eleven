@@ -111,6 +111,11 @@
       		<artifactId>lombok</artifactId>
       		<optional>true</optional>
     	</dependency>
+		<dependency><!--added for MySQL-->
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
