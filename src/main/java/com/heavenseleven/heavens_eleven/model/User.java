@@ -52,6 +52,7 @@ public class User implements UserDetails {
     )
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @Builder.Default
     private Set<Course> registeredCourses = new HashSet<>();
 
     @Override
